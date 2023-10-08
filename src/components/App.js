@@ -18,10 +18,11 @@ const App = () => {
         );
         const data = await response.json();
         setNewsData(data.articles);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
-        setLoading(false);
+      }
+      finally {
+        setLoading(false); 
       }
     };
 
