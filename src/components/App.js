@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react'
 import '../styles/App.css';
 
@@ -5,6 +6,22 @@ const App = () => {
   const [category, setCategory] = useState("general");
   const [newsData, setNewsData] = useState([]);
   const [loading, setLoading] = useState();
+
+ useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://gnews.io/api/v4/top-headlines?category=${category}&apikey=[API_KEY] &max=10&lang=en`);
+        const data = await response.json();
+        setNews(data.articles);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [category]);
 
   return (
     <div id="main">
