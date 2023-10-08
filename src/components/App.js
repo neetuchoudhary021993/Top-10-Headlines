@@ -1,7 +1,9 @@
 
 
+
 import React, { useState, useEffect } from "react";
 import '../styles/App.css';
+
 const App = () => {
   const [category, setCategory] = useState("general");
   const [newsData, setNewsData] = useState([]);
@@ -18,14 +20,14 @@ const App = () => {
         );
         const data = await response.json();
         setNewsData(data.articles);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
-      }
-      finally {
-        setLoading(false); 
+      } finally {
+        setLoading(false);
       }
     };
-
+    setLoading(true);
     fetchData();
   }, [category]);
   const handleCategoryChange = (event) => {
@@ -70,5 +72,3 @@ const App = () => {
 };
 
 export default App;
-
-
